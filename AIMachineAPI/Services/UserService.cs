@@ -9,20 +9,21 @@ namespace AIMachineAPI.Services
                 new User { Id = 1, Username = "test", Password = "test"}
             };
 
-        public User Authenticate(string username, string password)
+        public async Task<User> Authenticate(string username, string password)
         {
-            var user = _users.First();
+            var user = await Task.Run(() => _users.First());
             return user;
         }
 
-        public IEnumerable<User> GetAll()
+        public async Task<IEnumerable<User>> GetAll()
         {
-            return _users;
+            var users = await Task.Run(() => _users);
+            return users;
         }
 
-        public void Add(User user)
+        public async Task Add(User user)
         {
-            _users.Add(user);
+            await Task.Run(() => _users.Add(user));
         }
     }
 }

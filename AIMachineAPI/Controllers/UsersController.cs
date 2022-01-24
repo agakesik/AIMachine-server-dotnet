@@ -18,32 +18,32 @@ namespace AIMachineAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<List<User>>> Get()
         {
-            var users = _userService.GetAll();
+            var users = await _userService.GetAll();
             return Ok(users);
         }
 
         [HttpGet("self")]
         public async Task<IActionResult> GetSelf()
         {
-            return Ok("self");
+            return await Task.Run(() => Ok("self"));
         }
 
         [HttpGet("login")]
         public async Task<IActionResult> Login()
         {
-            return Ok("login");
+            return await Task.Run(() => Ok("login"));
         }
 
         [HttpGet("logout")]
         public async Task<IActionResult> Logout()
         {
-            return Ok("logout");
+            return await Task.Run(() => Ok("logout"));
         }
         [HttpPost("create")]
         public async Task<ActionResult<List<User>>> AddUser(User user)
         {
-            _userService.Add(user);
-            var users = _userService.GetAll();
+            await _userService.Add(user);
+            var users = await _userService.GetAll();
             return Ok(users);
         }
     }

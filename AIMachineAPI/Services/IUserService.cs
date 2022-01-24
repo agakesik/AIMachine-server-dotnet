@@ -4,8 +4,8 @@ namespace AIMachineAPI.Services
 {
     public interface IUserService
     {
-        User Authenticate(string username, string password);
-        IEnumerable<User> GetAll();
-        void Add(User user);
+        Task<User> Authenticate(string username, string password);
+        Task<IEnumerable<User>> GetAll();
+        Task Add(User user);
     }
 }

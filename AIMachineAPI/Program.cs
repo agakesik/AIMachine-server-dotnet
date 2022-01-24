@@ -1,4 +1,6 @@
 
+using AIMachineAPI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -19,6 +21,7 @@ builder.Services.AddCors(options =>
                                  .AllowCredentials();
                       });
 });
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

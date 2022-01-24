@@ -1,4 +1,5 @@
 ﻿using AIMachineAPI.Models;
+using AIMachineAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 
@@ -8,14 +9,16 @@ namespace AIMachineAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        public static List<User> users = new List<User>
-            {
-                new User { Id = 1, Username = "test", Password = "test"}
-            };
+        private readonly IUserService _userService;
 
+        public UsersController(IUserService userService)
+        {
+            this._userService = userService;
+        }
         [HttpGet]
         public async Task<ActionResult<List<User>>> Get()
         {
+            var users = _userService.GetAll();
             return Ok(users);
         }
 
@@ -39,8 +42,9 @@ namespace AIMachineAPI.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<List<User>>> AddUser(User user)
         {
-            users.Add(user);
-            return Ok(user);
+            _userService.Add(user);
+            var users = _userService.GetAll();
+            return Ok(users);
         }
     }
 }

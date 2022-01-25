@@ -9,9 +9,10 @@ namespace AIMachineAPI.Services
                 new User { Id = 1, Username = "test", Password = "test"}
             };
 
+
         public async Task<User> Authenticate(string username, string password)
         {
-            var user = await Task.Run(() => _users.First());
+            var user = await Task.Run(() => _users.SingleOrDefault(x => x.Username == username && x.Password == password));
             return user;
         }
 

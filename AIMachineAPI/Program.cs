@@ -1,4 +1,5 @@
 
+using AIMachineAPI.Authorization;
 using AIMachineAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,6 +38,7 @@ app.UseHttpsRedirection();
 app.UseCors();
 
 app.UseAuthorization();
+app.UseMiddleware<BasicAuthMiddleware>();
 
 app.MapControllers();
 

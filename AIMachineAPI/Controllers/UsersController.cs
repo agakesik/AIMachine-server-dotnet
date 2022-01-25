@@ -1,10 +1,11 @@
-﻿using AIMachineAPI.Models;
+﻿using AIMachineAPI.Authorization;
+using AIMachineAPI.Models;
 using AIMachineAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 
 namespace AIMachineAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -15,6 +16,7 @@ namespace AIMachineAPI.Controllers
         {
             this._userService = userService;
         }
+
         [HttpGet]
         public async Task<ActionResult<List<User>>> Get()
         {
@@ -31,7 +33,8 @@ namespace AIMachineAPI.Controllers
         [HttpGet("login")]
         public async Task<IActionResult> Login()
         {
-            return await Task.Run(() => Ok("login"));
+            
+            return await Task.Run(() => Ok("hello"));
         }
 
         [HttpGet("logout")]
@@ -39,6 +42,9 @@ namespace AIMachineAPI.Controllers
         {
             return await Task.Run(() => Ok("logout"));
         }
+
+
+        [AllowAnonymous]
         [HttpPost("create")]
         public async Task<ActionResult<List<User>>> AddUser(User user)
         {
